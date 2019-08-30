@@ -17,8 +17,10 @@ An android app will be used for analysis of these real time data collected .
 NodeMCU esp8266 Wi-Fi module connected to various sensors will be used to send and receive data with the android app. 
 -We will use raspberry pi for all the processing of information from different sensors.
 -The app will have basic user registration and login feature. 
-The user have to login first, then the app will be integrated with the various sensors fitted in the vehicle and the database of the sensor values will be stored from various users whose average will be calculated. 
-The app will have predefined limits of values of dB and lux such that if any anomaly is found in any place will be alerted to the user via push notifications.
+The user have to login first, then the app will be integrated with the various sensors fitted in the vehicle 
+and the database of the sensor values will be stored from various users whose average will be calculated. 
+The app will have predefined limits of values of dB and lux such that if any anomaly is found in any place 
+will be alerted to the user via push notifications.
 
 
 - The data after analysis will be geotagged in Google maps using Google maps API which is 

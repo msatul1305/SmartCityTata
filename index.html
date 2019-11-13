@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+            /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+              height: 100%;
+            }
+            /* Optional: Makes the sample page fill the window. */
+            html, body {
+              height: 100%;
+              margin: 0;
+              padding: 0;
+            }
+          </style>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+          <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+          <script>
+            // Initialize Firebase
+            var config = {
+              apiKey: "AIzaSyA86N6Jz-ytx1klKe2e9yhmnENw_4Lubfw",
+              authDomain: "tatacrucible-b11a9.firebaseapp.com",
+              databaseURL: "https://tatacrucible-b11a9.firebaseio.com",
+              projectId: "tatacrucible-b11a9",
+              storageBucket: "tatacrucible-b11a9.appspot.com",
+              messagingSenderId: "8533288958"
+            };
+            firebase.initializeApp(config);
+          </script>
+            </head>
+            <body>
+                    <div id='map' style='width: 90%; height: 90%;'></div>
+                    <script>
+                            mapboxgl.accessToken = 'pk.eyJ1IjoibXNhdHVsMTMwNSIsImEiOiJjanRpa211a2UxOG1uNDNycnJta3F1dms3In0.HONoCUtAef4bxRreP4PNCA';
+                            var map = new mapboxgl.Map({
+                            container: 'map',
+                            style: 'mapbox://styles/mapbox/streets-v11'
+                            });
+                            </script>
+
+            </body>
+            <script>
+              map.addControl(new mapboxgl.GeolocateControl({
+              positionOptions: {
+              enableHighAccuracy: true
+              },
+              trackUserLocation: true
+              }));
+              //red - Pothole
+              // Blue - Noise
+              // green - Illumination level
+              var popup = new mapboxgl.Popup()
+                .setText('Pothole Detect');
+                // options.color('#FFFFFF')
+              var popup1 = new mapboxgl.Popup()
+                .setText('high Noise');
+              var popup2 = new mapboxgl.Popup()
+                .setText('Low Level of Illumination');
+                var popup3 = new mapboxgl.Popup()
+                .setText('Pothole Detect');
+                
+                var marker = new mapboxgl.Marker({color:'red'}) //
+                .setLngLat([72.897628,19.0730898])
+                .addTo(map)
+                .setPopup(popup); // sets a popup on this marker
+               
+                // options.color('#FFFFFF')
+                var marker1 = new mapboxgl.Marker({color:'blue'})
+                .setLngLat([72.97628,19.730898])
+                .addTo(map)
+                .setPopup(popup1);
+                // options.color('#FFFFFF')
+                
+                var marker2 = new mapboxgl.Marker({color:'green'})
+                .setLngLat([73.897628,20.0730898])
+                .addTo(map)
+                .setPopup(popup2);
+                
+                var marker3 = new mapboxgl.Marker({color:'red'})
+                .setLngLat([72.8978,19.1798])
+                .addTo(map)
+                .setPopup(popup3);
+                /*
+                var marker4 = new mapboxgl.Marker({color:'pink'})
+                .setLngLat([72.7620,19.7398])
+                .addTo(map)
+                .setPopup(popup);
+                var marker5 = new mapboxgl.Marker({color:'white'})
+                .setLngLat([72.976,19.107])
+                .addTo(map)
+                .setPopup(popup);
+                var marker6 = new mapboxgl.Marker()
+                .setLngLat([72.88,19.98])
+                .addTo(map)
+                .setPopup(popup);
+                */
+                var database=firebase.database();
+              var ref=database.ref("newcoord1");
+              ref.on('value',getdata);
+          function getdata(data) {
+          var loca = data.val();
+          lati=xyz.latitude;
+          longi=xyz.longitude;
+          // console.log(loca);
+          // console.log();
+          }
+          var ref1=database.ref("ultrasonic");
+              ref1.on('value',getdata);
+          function getdata(data) {
+          var  ultrasonic= data.val();
+          //var ultras=ultrasonic.Distance;
+          // console.log(ultrasonic);
+          // console.log();
+            if(ultrasonic>9){
+              var marker = new mapboxgl.Marker({color:'red'}) //
+                .setLngLat([83.8893087,21.497241])
+                .addTo(map)
+                .setPopup(popup);
+            }
+          }
+            </script>
+        </html>
